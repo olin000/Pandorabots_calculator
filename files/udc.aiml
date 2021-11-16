@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+    <category>
+        <pattern>*</pattern>
+        <template>
+                I have no answer for that.<br/>
+                With this please contact our human representtive at:
+                <button>
+                    <text>Telephone +48 7654321</text>
+                    <url>tel:+48 7654321</url>
+                </button>
+        </template>
+    </category>
+</aiml>

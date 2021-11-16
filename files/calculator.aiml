@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+    <category>
+        <pattern>HELLO *</pattern>
+        <template>
+            Hi there, I am a calculator bot. <br/>
+            I can add, substract, multiply <br/>
+            and divide in the domain of  <br/>
+            natural numbers.
+        </template>
+    </category>
+    
+    <category>
+        <pattern>HELLO</pattern>
+        <template>
+            <srai>
+                HELLO *
+            </srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>HI</pattern>
+        <template>
+            <srai>
+                HELLO *
+            </srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>HI *</pattern>
+        <template>
+            <srai>
+                HELLO *
+            </srai>
+        </template>
+    </category>
+
+    <!--Addition-->
+    <category>
+        <pattern>WHAT IS * PLUS *</pattern>
+        <template>
+             <think>
+                <set name="tempresult">
+                    <srai>
+                        XADD <star/> XS <star index="2"/>
+                    </srai>
+                </set>
+                <set name="istempresultanumber">
+                    <srai>
+                        XISNUMBER <get name="tempresult"/>
+                    </srai>
+                </set>
+            </think>
+            <condition name="istempresultanumber">
+                <li value="TRUE">
+                    <think>
+                        <set name="result">
+                            <get name="tempresult"/>
+                        </set>
+                    </think>
+                    <set name="space"> </set>
+                    It is<get name="space"/><get name="result"/>
+                </li>
+                <li value="FALSE">
+                    It seems your last inputs couldn't have been processed. Let's restart.
+                    <think>
+                        <set name="result">0</set>
+                    </think>
+                </li>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* PLUS *</pattern>
+        <template>
+            <srai>
+                WHAT IS <star/> PLUS <star index="2"/>
+            </srai>
+        </template>
+    </category>
+    
+    <!--Subtraction-->
+    <category>
+        <pattern>WHAT IS * LESS *</pattern>
+        <template>
+            <think>
+                <set name="tempresult">
+                    <srai>
+                        XSUB <star/> XS <star index="2"/>
+                    </srai>
+                </set>
+                <set name="istempresultanumber">
+                    <srai>
+                        XISNUMBER <get name="tempresult"/>
+                    </srai>
+                </set>
+            </think>            
+            <condition name="istempresultanumber">
+                <li value="TRUE">
+                    <think>
+                        <set name="result">
+                            <get name="tempresult"/>
+                        </set>
+                    </think>
+                    <think>
+                        <set name="agraterthanorequaltob">
+                            <srai>
+                                XGE <star/> XS <star index="2"/>
+                            </srai>
+                        </set>
+                    </think>
+                    <condition name="agraterthanorequaltob">
+                        <li value="TRUE">
+                            <set name="space"> </set>
+                            It is<get name="space"/><get name="result"/>
+                        </li>
+                        <li value="FALSE">
+                            I cannot help you with this as this goes below zero. Beyond the domain of natural numbers. Let's restart.
+                            <think>
+                                <set name="result">0</set>
+                            </think>
+                        </li>
+                    </condition>
+                </li>
+                <li value="FALSE">
+                    It seems your last inputs couldn't have been processed. Let's restart.
+                    <think>
+                        <set name="result">0</set>
+                    </think>
+                </li>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* MINUS *</pattern>
+        <template>
+            <srai>
+                WHAT IS <star/> LESS <star index="2"/>
+            </srai>
+        </template>
+    </category>
+    
+    <!--
+    * - * doesn't work
+    but - is a dash and it works
+    -->
+    <category>
+        <pattern>* DASH  *</pattern>
+        <template>
+            <srai>
+                WHAT IS <star/> LESS <star index="2"/>
+            </srai>
+        </template>
+    </category>
+    
+    <!--Multiplication-->
+    <category>
+        <pattern>WHAT IS * TIMES *</pattern>
+        <template>
+             <think>
+                <set name="tempresult">
+                    <srai>
+                        XMUL <star/> XS <star index="2"/>
+                    </srai>
+                </set>
+                <set name="istempresultanumber">
+                    <srai>
+                        XISNUMBER <get name="tempresult"/>
+                    </srai>
+                </set>
+            </think>
+            <condition name="istempresultanumber">
+                <li value="TRUE">
+                    <think>
+                        <set name="result">
+                            <get name="tempresult"/>
+                        </set>
+                    </think>
+                    <set name="space"> </set>
+                    It is<get name="space"/><get name="result"/>
+                </li>
+                <li value="FALSE">
+                    It seems your last inputs couldn't have been processed. Let's restart.
+                    <think>
+                        <set name="result">0</set>
+                    </think>
+                </li>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* TIMES *</pattern>
+        <template>
+            <srai>
+                WHAT IS <star/> TIMES <star index="2"/>
+            </srai>
+        </template>
+    </category>
+    
+    <!--
+    * * * doesn't work
+    but * is a star and it works
+    -->
+    <category>
+        <pattern>* STAR *</pattern>
+        <template>
+            <srai>
+                WHAT IS <star/> TIMES <star index="2"/>
+            </srai>
+        </template>
+    </category>
+    
+    
+    <!--Division-->
+    <category>
+        <pattern>WHAT IS * DIVIDED BY  *</pattern>
+          <template>
+             <think>
+                <set name="tempresult">
+                    <srai>
+                        XDIV <star/> XS <star index="2"/>
+                    </srai>
+                </set>
+                <set name="istempresultanumber">
+                    <srai>
+                        XISNUMBER <get name="tempresult"/>
+                    </srai>
+                </set>
+            </think>
+            <condition name="istempresultanumber">
+                <li value="TRUE">
+                    <think>
+                        <set name="result">
+                            <get name="tempresult"/>
+                        </set>
+                    </think>
+                    <set name="space"> </set>
+                    It is<get name="space"/><get name="result"/>
+                </li>
+                <li value="FALSE">
+                    It seems your last inputs couldn't have been processed. Let's restart.
+                    <think>
+                        <set name="result">0</set>
+                    </think>
+                </li>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* BY *</pattern>
+        <template>
+            <srai>
+                WHAT IS <star/> DIVIDED BY <star index="2"/>
+            </srai>
+        </template>
+    </category>
+
+    <!--
+    * / * doesn't work
+    but / is a slash and it works
+    -->
+    <category>
+        <pattern>* SLASH *</pattern>
+        <template>
+            <srai>
+                WHAT IS <star/> DIVIDED BY <star index="2"/>
+            </srai>
+        </template>
+    </category>
+    
+    <!--Operations on the previous result-->
+    <category>
+        <pattern>PLUS *</pattern>
+        <that>It is *</that>
+        <template>
+            <srai>
+                WHAT IS <get name="result"/> PLUS <star/>
+            </srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>DASH *</pattern>
+        <that>It is *</that>
+        <template>
+            <srai>
+                WHAT IS <get name="result"/> LESS <star/>
+            </srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>STAR  *</pattern>
+        <that>It is *</that>
+        <template>
+            <srai>
+                WHAT IS <get name="result"/> TIMES <star/>
+            </srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>SLASH *</pattern>
+        <that>It is *</that>
+        <template>
+            <srai>
+                WHAT IS <get name="result"/> DIVIDED BY <star/>
+            </srai>
+        </template>
+    </category>   
+</aiml>
